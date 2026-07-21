@@ -14,16 +14,262 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      admin_settings: {
+        Row: {
+          id: string
+          key: string
+          updated_at: string
+          value: Json
+        }
+        Insert: {
+          id?: string
+          key: string
+          updated_at?: string
+          value: Json
+        }
+        Update: {
+          id?: string
+          key?: string
+          updated_at?: string
+          value?: Json
+        }
+        Relationships: []
+      }
+      materials: {
+        Row: {
+          active: boolean
+          color_options: Json
+          created_at: string
+          id: string
+          name: string
+          price_per_gram: number
+          type: Database["public"]["Enums"]["material_type"]
+        }
+        Insert: {
+          active?: boolean
+          color_options?: Json
+          created_at?: string
+          id?: string
+          name: string
+          price_per_gram: number
+          type: Database["public"]["Enums"]["material_type"]
+        }
+        Update: {
+          active?: boolean
+          color_options?: Json
+          created_at?: string
+          id?: string
+          name?: string
+          price_per_gram?: number
+          type?: Database["public"]["Enums"]["material_type"]
+        }
+        Relationships: []
+      }
+      models: {
+        Row: {
+          created_at: string
+          dimensions_mm: Json
+          est_print_time_min: number
+          est_weight_g: number
+          file_url: string | null
+          id: string
+          name: string
+          source: Database["public"]["Enums"]["model_source"]
+          source_id: string | null
+          source_url: string | null
+          thumbnail_url: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          dimensions_mm?: Json
+          est_print_time_min?: number
+          est_weight_g?: number
+          file_url?: string | null
+          id?: string
+          name: string
+          source: Database["public"]["Enums"]["model_source"]
+          source_id?: string | null
+          source_url?: string | null
+          thumbnail_url?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          dimensions_mm?: Json
+          est_print_time_min?: number
+          est_weight_g?: number
+          file_url?: string | null
+          id?: string
+          name?: string
+          source?: Database["public"]["Enums"]["model_source"]
+          source_id?: string | null
+          source_url?: string | null
+          thumbnail_url?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      order_items: {
+        Row: {
+          color: string
+          finishing_options: Json
+          id: string
+          infill_pct: number
+          layer_height: number
+          line_total: number
+          material_id: string | null
+          material_name: string
+          model_id: string | null
+          model_name: string
+          order_id: string
+          quantity: number
+          unit_price: number
+        }
+        Insert: {
+          color: string
+          finishing_options?: Json
+          id?: string
+          infill_pct: number
+          layer_height: number
+          line_total: number
+          material_id?: string | null
+          material_name: string
+          model_id?: string | null
+          model_name: string
+          order_id: string
+          quantity?: number
+          unit_price: number
+        }
+        Update: {
+          color?: string
+          finishing_options?: Json
+          id?: string
+          infill_pct?: number
+          layer_height?: number
+          line_total?: number
+          material_id?: string | null
+          material_name?: string
+          model_id?: string | null
+          model_name?: string
+          order_id?: string
+          quantity?: number
+          unit_price?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_items_material_id_fkey"
+            columns: ["material_id"]
+            isOneToOne: false
+            referencedRelation: "materials"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "order_items_model_id_fkey"
+            columns: ["model_id"]
+            isOneToOne: false
+            referencedRelation: "models"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "order_items_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      orders: {
+        Row: {
+          created_at: string
+          delivery_address: Json
+          id: string
+          notes: string | null
+          status: Database["public"]["Enums"]["order_status"]
+          total_price: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          delivery_address?: Json
+          id?: string
+          notes?: string | null
+          status?: Database["public"]["Enums"]["order_status"]
+          total_price?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          delivery_address?: Json
+          id?: string
+          notes?: string | null
+          status?: Database["public"]["Enums"]["order_status"]
+          total_price?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          full_name: string | null
+          id: string
+        }
+        Insert: {
+          created_at?: string
+          full_name?: string | null
+          id: string
+        }
+        Update: {
+          created_at?: string
+          full_name?: string | null
+          id?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "customer" | "admin"
+      material_type: "PLA" | "PETG" | "ABS" | "TPU" | "Resin"
+      model_source: "makerworld" | "upload"
+      order_status: "pending" | "slicing" | "printing" | "shipped" | "delivered"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +396,11 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["customer", "admin"],
+      material_type: ["PLA", "PETG", "ABS", "TPU", "Resin"],
+      model_source: ["makerworld", "upload"],
+      order_status: ["pending", "slicing", "printing", "shipped", "delivered"],
+    },
   },
 } as const

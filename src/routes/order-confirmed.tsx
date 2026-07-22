@@ -33,10 +33,10 @@ function Confirmed() {
             )}
             <div className="mt-2 flex gap-2">
               <Button asChild variant="outline">
-                <Link to="/">Home</Link>
+                <Link to="/configure">Print another</Link>
               </Button>
               <Button asChild>
-                <Link to="/configure">Print another</Link>
+                <Link to="/dashboard">Track order</Link>
               </Button>
             </div>
           </CardContent>

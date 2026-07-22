@@ -63,10 +63,26 @@ export function SiteHeader() {
             </Link>
           </Button>
           {user ? (
-            <Button variant="outline" size="sm" onClick={signOut}>
-              <LogOut className="h-4 w-4" />
-              <span className="hidden sm:inline">Sign out</span>
-            </Button>
+            <>
+              <Button asChild variant="ghost" size="sm">
+                <Link to="/dashboard">
+                  <LayoutDashboard className="h-4 w-4" />
+                  <span className="hidden sm:inline">Dashboard</span>
+                </Link>
+              </Button>
+              {isAdmin && (
+                <Button asChild variant="ghost" size="sm">
+                  <Link to="/admin">
+                    <Shield className="h-4 w-4" />
+                    <span className="hidden sm:inline">Admin</span>
+                  </Link>
+                </Button>
+              )}
+              <Button variant="outline" size="sm" onClick={signOut}>
+                <LogOut className="h-4 w-4" />
+                <span className="hidden sm:inline">Sign out</span>
+              </Button>
+            </>
           ) : (
             <Button asChild size="sm">
               <Link to="/auth">

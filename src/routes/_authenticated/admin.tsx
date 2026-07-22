@@ -338,7 +338,7 @@ function MaterialRowEditor({
   onSave,
 }: {
   row: MaterialRow;
-  onSave: (patch: Partial<MaterialRow>) => void;
+  onSave: (patch: { price_per_gram?: number; active?: boolean }) => void;
 }) {
   const [price, setPrice] = useState(String(row.price_per_gram));
   const dirty = Number(price) !== row.price_per_gram;

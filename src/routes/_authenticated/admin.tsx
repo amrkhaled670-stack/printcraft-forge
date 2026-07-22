@@ -282,7 +282,7 @@ function MaterialsPanel() {
   });
 
   const update = useMutation({
-    mutationFn: async ({ id, patch }: { id: string; patch: Partial<MaterialRow> }) => {
+    mutationFn: async ({ id, patch }: { id: string; patch: { price_per_gram?: number; active?: boolean } }) => {
       const { error } = await supabase.from("materials").update(patch).eq("id", id);
       if (error) throw error;
     },

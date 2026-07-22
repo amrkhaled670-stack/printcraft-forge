@@ -31,7 +31,7 @@ function Confirmed() {
                 order.id / {id.slice(0, 8)}
               </div>
             )}
-            <div class-name="mt-2 flex gap-2">
+            <div className="mt-2 flex gap-2">
               <Button asChild variant="outline">
                 <Link to="/configure">Print another</Link>
               </Button>

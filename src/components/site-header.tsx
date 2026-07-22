@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "@tanstack/react-router";
-import { Boxes, ShoppingCart, LogOut, User as UserIcon } from "lucide-react";
+import { Boxes, ShoppingCart, LogOut, User as UserIcon, LayoutDashboard, Shield } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
+import { useRoles } from "@/hooks/use-role";
 import { useCart } from "@/stores/cart";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -8,6 +9,7 @@ import { supabase } from "@/integrations/supabase/client";
 
 export function SiteHeader() {
   const { user } = useAuth();
+  const { isAdmin } = useRoles();
   const items = useCart((s) => s.items);
   const navigate = useNavigate();
 

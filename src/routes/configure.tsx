@@ -21,7 +21,7 @@ import {
 import { useCart } from "@/stores/cart";
 import { useMaterials, useSettings } from "@/lib/queries";
 import { calcPrice, money, DEFAULT_SETTINGS } from "@/lib/pricing";
-import { parseMakerWorldUrl } from "@/lib/mock-parser";
+
 
 export const Route = createFileRoute("/configure")({
   head: () => ({
@@ -57,12 +57,10 @@ function Configure() {
   const [finishing, setFinishing] = useState<string[]>([]);
   const [quantity, setQuantity] = useState(1);
 
-  // Seed a demo model if the user came here directly.
+  // No model in state — send them back to the intake page.
   useEffect(() => {
-    if (!model) {
-      parseMakerWorldUrl("https://makerworld.com/en/models/000001").then(setModel);
-    }
-  }, [model, setModel]);
+    if (!model) navigate({ to: "/" });
+  }, [model, navigate]);
 
   useEffect(() => {
     if (materials.length && !materialId) {
@@ -133,7 +131,7 @@ function Configure() {
           <div className="space-y-6">
             <Card className="border-border/70 bg-card/60">
               <CardContent className="p-6">
-                <ModelPreview dimensions={model.dimensions_mm} />
+                <ModelPreview dimensions={model.dimensions_mm} thumbnailUrl={model.thumbnail_url} />
               </CardContent>
             </Card>
 
@@ -151,8 +149,12 @@ function Configure() {
                   <Stat
                     icon={<Ruler className="h-4 w-4" />}
                     label="Dimensions"
-                    value={`${model.dimensions_mm.x}×${model.dimensions_mm.y}×${model.dimensions_mm.z}`}
-                    unit="mm"
+                    value={
+                      model.dimensions_mm.x > 0
+                        ? `${model.dimensions_mm.x}×${model.dimensions_mm.y}×${model.dimensions_mm.z}`
+                        : "—"
+                    }
+                    unit={model.dimensions_mm.x > 0 ? "mm" : ""}
                   />
                   <Stat
                     icon={<Weight className="h-4 w-4" />}

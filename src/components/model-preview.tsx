@@ -4,12 +4,16 @@ import { useEffect, useRef } from "react";
 // dimension overlays. Not a real STL viewer — a stand-in until three.js.
 export function ModelPreview({
   dimensions,
+  thumbnailUrl,
 }: {
   dimensions: { x: number; y: number; z: number };
+  thumbnailUrl?: string | null;
 }) {
   const ref = useRef<HTMLCanvasElement>(null);
+  const hasDims = dimensions.x > 0 && dimensions.y > 0 && dimensions.z > 0;
 
   useEffect(() => {
+    if (!hasDims) return;
     const canvas = ref.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d")!;
@@ -80,18 +84,31 @@ export function ModelPreview({
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", onResize);
     };
-  }, [dimensions.x, dimensions.y, dimensions.z]);
+  }, [dimensions.x, dimensions.y, dimensions.z, hasDims]);
 
   return (
     <div className="relative aspect-square w-full overflow-hidden rounded-lg border border-border bg-background grid-bg">
-      <canvas ref={ref} className="h-full w-full" />
+      {hasDims ? (
+        <canvas ref={ref} className="h-full w-full" />
+      ) : thumbnailUrl ? (
+        <img
+          src={thumbnailUrl}
+          alt="Model preview"
+          className="h-full w-full object-contain"
+          loading="lazy"
+        />
+      ) : (
+        <div className="grid h-full w-full place-items-center mono text-xs uppercase tracking-widest text-muted-foreground">
+          no preview
+        </div>
+      )}
       <div className="pointer-events-none absolute inset-4 flex flex-col justify-between mono text-[11px] uppercase tracking-widest text-muted-foreground">
         <div className="flex justify-between">
-          <span>X {dimensions.x}mm</span>
-          <span>Z {dimensions.z}mm</span>
+          <span>X {hasDims ? `${dimensions.x}mm` : "—"}</span>
+          <span>Z {hasDims ? `${dimensions.z}mm` : "—"}</span>
         </div>
         <div className="flex justify-between">
-          <span>Y {dimensions.y}mm</span>
+          <span>Y {hasDims ? `${dimensions.y}mm` : "—"}</span>
           <span className="text-primary">// preview</span>
         </div>
       </div>

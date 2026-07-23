@@ -21,7 +21,7 @@ import {
 import { useCart } from "@/stores/cart";
 import { useMaterials, useSettings } from "@/lib/queries";
 import { calcPrice, money, DEFAULT_SETTINGS } from "@/lib/pricing";
-import { parseMakerWorldUrl } from "@/lib/mock-parser";
+
 
 export const Route = createFileRoute("/configure")({
   head: () => ({
@@ -57,12 +57,10 @@ function Configure() {
   const [finishing, setFinishing] = useState<string[]>([]);
   const [quantity, setQuantity] = useState(1);
 
-  // Seed a demo model if the user came here directly.
+  // No model in state — send them back to the intake page.
   useEffect(() => {
-    if (!model) {
-      parseMakerWorldUrl("https://makerworld.com/en/models/000001").then(setModel);
-    }
-  }, [model, setModel]);
+    if (!model) navigate({ to: "/" });
+  }, [model, navigate]);
 
   useEffect(() => {
     if (materials.length && !materialId) {

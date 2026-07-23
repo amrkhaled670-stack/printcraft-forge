@@ -4,12 +4,16 @@ import { useEffect, useRef } from "react";
 // dimension overlays. Not a real STL viewer — a stand-in until three.js.
 export function ModelPreview({
   dimensions,
+  thumbnailUrl,
 }: {
   dimensions: { x: number; y: number; z: number };
+  thumbnailUrl?: string | null;
 }) {
   const ref = useRef<HTMLCanvasElement>(null);
+  const hasDims = dimensions.x > 0 && dimensions.y > 0 && dimensions.z > 0;
 
   useEffect(() => {
+    if (!hasDims) return;
     const canvas = ref.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d")!;

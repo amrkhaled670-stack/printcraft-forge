@@ -131,7 +131,12 @@ function Configure() {
           <div className="space-y-6">
             <Card className="border-border/70 bg-card/60">
               <CardContent className="p-6">
-                <ModelPreview dimensions={model.dimensions_mm} thumbnailUrl={model.thumbnail_url} />
+                <ModelPreview
+                  dimensions={model.dimensions_mm}
+                  thumbnailUrl={model.thumbnail_url}
+                  fileUrl={model.file_url}
+                  fileFormat={model.file_format}
+                />
               </CardContent>
             </Card>
 

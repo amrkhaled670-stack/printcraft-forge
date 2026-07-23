@@ -149,8 +149,12 @@ function Configure() {
                   <Stat
                     icon={<Ruler className="h-4 w-4" />}
                     label="Dimensions"
-                    value={`${model.dimensions_mm.x}×${model.dimensions_mm.y}×${model.dimensions_mm.z}`}
-                    unit="mm"
+                    value={
+                      model.dimensions_mm.x > 0
+                        ? `${model.dimensions_mm.x}×${model.dimensions_mm.y}×${model.dimensions_mm.z}`
+                        : "—"
+                    }
+                    unit={model.dimensions_mm.x > 0 ? "mm" : ""}
                   />
                   <Stat
                     icon={<Weight className="h-4 w-4" />}

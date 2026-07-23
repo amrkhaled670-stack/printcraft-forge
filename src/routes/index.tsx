@@ -71,7 +71,7 @@ function Landing() {
       toast.success(`Loaded "${parsed.name}"`);
       navigate({ to: "/configure" });
     } catch {
-      toast.error("Couldn't parse that link");
+      toast.error("Could not fetch model. Try uploading STL directly.");
     } finally {
       setLoading(false);
     }

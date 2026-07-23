@@ -78,21 +78,25 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "PrintHub — On-demand 3D printing with instant pricing" },
+      { title: "PrintHub — Paste. Configure. Print." },
       {
         name: "description",
         content:
-          "Paste a MakerWorld link or upload an STL and get a real-time quote across PLA, PETG, ABS, TPU, and resin — configure, order, and track prints in one place.",
+          "PrintHub turns a MakerWorld link or STL upload into a shipped part. Instant multi-material pricing, real-time tracking.",
       },
       { name: "author", content: "PrintHub" },
-      { property: "og:title", content: "PrintHub — On-demand 3D printing" },
+      { property: "og:title", content: "PrintHub — Paste. Configure. Print." },
       {
         property: "og:description",
         content:
-          "Live pricing, multi-material selection, real-time print tracking. From MakerWorld link to shipped part.",
+          "PrintHub turns a MakerWorld link or STL upload into a shipped part. Instant multi-material pricing, real-time tracking.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "PrintHub — Paste. Configure. Print." },
+      { name: "twitter:description", content: "PrintHub turns a MakerWorld link or STL upload into a shipped part. Instant multi-material pricing, real-time tracking." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/29d5d85a-0297-4a41-a89a-6f89d60271f9/id-preview-82aa5c55--466e2b70-c9ad-43f7-bb7a-51774835cb2b.lovable.app-1784767491459.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/29d5d85a-0297-4a41-a89a-6f89d60271f9/id-preview-82aa5c55--466e2b70-c9ad-43f7-bb7a-51774835cb2b.lovable.app-1784767491459.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },

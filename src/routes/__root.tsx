@@ -133,10 +133,21 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const { i18n } = useTranslation();
+
+  useEffect(() => {
+    applyDirection(i18n.resolvedLanguage ?? i18n.language ?? "en");
+    const onChange = (lng: string) => applyDirection(lng);
+    i18n.on("languageChanged", onChange);
+    return () => {
+      i18n.off("languageChanged", onChange);
+    };
+  }, [i18n]);
 
   return (
     <QueryClientProvider client={queryClient}>
       <Outlet />
+      <WhatsAppFloatingButton />
       <Toaster theme="dark" />
     </QueryClientProvider>
   );

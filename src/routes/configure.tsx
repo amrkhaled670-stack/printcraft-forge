@@ -26,8 +26,15 @@ import { calcPrice, money, DEFAULT_SETTINGS } from "@/lib/pricing";
 export const Route = createFileRoute("/configure")({
   head: () => ({
     meta: [
-      { title: "Configure — PrintHub" },
-      { name: "description", content: "Pick material, color, infill, and finish with live pricing." },
+      { title: "Configure your print — PrintHub" },
+      { name: "description", content: "Pick material, color, infill, and finish with live multi-material pricing before you check out." },
+      { name: "robots", content: "noindex" },
+      { property: "og:title", content: "Configure your print — PrintHub" },
+      { property: "og:description", content: "Pick material, color, infill, and finish with live pricing." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
+      { name: "twitter:title", content: "Configure your print — PrintHub" },
+      { name: "twitter:description", content: "Pick material, color, infill, and finish with live pricing." },
     ],
   }),
   component: Configure,

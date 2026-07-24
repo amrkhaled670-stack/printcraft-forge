@@ -16,7 +16,17 @@ import { money } from "@/lib/pricing";
 import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/_authenticated/checkout")({
-  head: () => ({ meta: [{ title: "Checkout — PrintHub" }] }),
+  head: () => ({
+    meta: [
+      { title: "Checkout — PrintHub" },
+      { name: "description", content: "Enter delivery details and place your PrintHub order." },
+      { name: "robots", content: "noindex" },
+      { property: "og:title", content: "Checkout — PrintHub" },
+      { property: "og:description", content: "Enter delivery details and place your PrintHub order." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
+    ],
+  }),
   component: Checkout,
 });
 

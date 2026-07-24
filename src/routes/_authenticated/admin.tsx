@@ -146,6 +146,7 @@ function AdminPage() {
 
 function OrdersPanel() {
   const qc = useQueryClient();
+  const [detailId, setDetailId] = useState<string | null>(null);
   const ordersQ = useQuery({
     queryKey: ["admin-orders"],
     queryFn: async () => {

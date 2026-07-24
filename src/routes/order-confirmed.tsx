@@ -6,7 +6,17 @@ import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/order-confirmed")({
   validateSearch: (s: Record<string, unknown>) => ({ id: (s.id as string) ?? "" }),
-  head: () => ({ meta: [{ title: "Order confirmed — PrintHub" }] }),
+  head: () => ({
+    meta: [
+      { title: "Order confirmed — PrintHub" },
+      { name: "description", content: "Your print is queued. Track slicing, printing, and shipping from your dashboard." },
+      { name: "robots", content: "noindex" },
+      { property: "og:title", content: "Order confirmed — PrintHub" },
+      { property: "og:description", content: "Your print is queued." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
+    ],
+  }),
   component: Confirmed,
 });
 

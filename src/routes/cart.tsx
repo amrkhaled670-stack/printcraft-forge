@@ -13,6 +13,13 @@ export const Route = createFileRoute("/cart")({
     meta: [
       { title: "Cart — PrintHub" },
       { name: "description", content: "Review your configured prints before checkout." },
+      { name: "robots", content: "noindex" },
+      { property: "og:title", content: "Cart — PrintHub" },
+      { property: "og:description", content: "Review your configured prints before checkout." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
+      { name: "twitter:title", content: "Cart — PrintHub" },
+      { name: "twitter:description", content: "Review your configured prints before checkout." },
     ],
   }),
   component: CartPage,

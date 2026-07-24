@@ -184,8 +184,12 @@ export type Database = {
         Row: {
           created_at: string
           delivery_address: Json
+          governorate: string | null
           id: string
           notes: string | null
+          payment_method: string | null
+          receipt_url: string | null
+          shipping_cost: number | null
           status: Database["public"]["Enums"]["order_status"]
           total_price: number
           updated_at: string
@@ -194,8 +198,12 @@ export type Database = {
         Insert: {
           created_at?: string
           delivery_address?: Json
+          governorate?: string | null
           id?: string
           notes?: string | null
+          payment_method?: string | null
+          receipt_url?: string | null
+          shipping_cost?: number | null
           status?: Database["public"]["Enums"]["order_status"]
           total_price?: number
           updated_at?: string
@@ -204,8 +212,12 @@ export type Database = {
         Update: {
           created_at?: string
           delivery_address?: Json
+          governorate?: string | null
           id?: string
           notes?: string | null
+          payment_method?: string | null
+          receipt_url?: string | null
+          shipping_cost?: number | null
           status?: Database["public"]["Enums"]["order_status"]
           total_price?: number
           updated_at?: string

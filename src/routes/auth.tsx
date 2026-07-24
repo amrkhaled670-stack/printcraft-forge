@@ -15,7 +15,13 @@ export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
       { title: "Sign in — PrintHub" },
-      { name: "description", content: "Sign in or create your PrintHub account." },
+      { name: "description", content: "Sign in or create your PrintHub account to configure prints, track orders, and manage your queue." },
+      { property: "og:title", content: "Sign in — PrintHub" },
+      { property: "og:description", content: "Sign in or create your PrintHub account." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
+      { name: "twitter:title", content: "Sign in — PrintHub" },
+      { name: "twitter:description", content: "Sign in or create your PrintHub account." },
     ],
   }),
   component: AuthPage,

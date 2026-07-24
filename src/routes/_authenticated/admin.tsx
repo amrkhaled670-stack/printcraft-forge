@@ -200,18 +200,21 @@ function OrdersPanel() {
               <TableHead className="mono text-[10px] uppercase tracking-widest">
                 Update
               </TableHead>
+              <TableHead className="mono text-[10px] uppercase tracking-widest">
+                Files
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {ordersQ.isLoading ? (
               <TableRow>
-                <TableCell colSpan={6} className="text-center text-sm text-muted-foreground">
+                <TableCell colSpan={7} className="text-center text-sm text-muted-foreground">
                   Loading…
                 </TableCell>
               </TableRow>
             ) : rows.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={6} className="text-center text-sm text-muted-foreground">
+                <TableCell colSpan={7} className="text-center text-sm text-muted-foreground">
                   No orders yet.
                 </TableCell>
               </TableRow>
@@ -253,15 +256,104 @@ function OrdersPanel() {
                       </SelectContent>
                     </Select>
                   </TableCell>
+                  <TableCell>
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      onClick={() => setDetailId(o.id)}
+                      aria-label={`View files for order ${o.id.slice(0, 8)}`}
+                    >
+                      <FileBox className="mr-1.5 h-3.5 w-3.5" /> View
+                    </Button>
+                  </TableCell>
                 </TableRow>
               ))
             )}
           </TableBody>
         </Table>
       </CardContent>
+      <OrderFilesDialog orderId={detailId} onClose={() => setDetailId(null)} />
     </Card>
   );
 }
+
+function OrderFilesDialog({ orderId, onClose }: { orderId: string | null; onClose: () => void }) {
+  const q = useQuery({
+    queryKey: ["admin-order-files", orderId],
+    enabled: !!orderId,
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("order_items")
+        .select("id, model_name, quantity, model_id, models(source, source_url, file_url, thumbnail_url)")
+        .eq("order_id", orderId!);
+      if (error) throw error;
+      return data ?? [];
+    },
+  });
+  return (
+    <Dialog open={!!orderId} onOpenChange={(v) => !v && onClose()}>
+      <DialogContent className="max-w-lg">
+        <DialogHeader>
+          <DialogTitle>Order files</DialogTitle>
+        </DialogHeader>
+        <div className="space-y-3">
+          {q.isLoading && <p className="text-sm text-muted-foreground">Loading…</p>}
+          {q.data?.length === 0 && (
+            <p className="text-sm text-muted-foreground">No items on this order.</p>
+          )}
+          {(q.data ?? []).map((it: any) => {
+            const m = it.models ?? {};
+            return (
+              <div key={it.id} className="rounded-md border border-border/60 bg-background/40 p-3">
+                <div className="flex items-center justify-between gap-3">
+                  <div>
+                    <p className="font-medium">{it.model_name}</p>
+                    <p className="mono text-[10px] uppercase tracking-widest text-muted-foreground">
+                      qty {it.quantity} · {m.source ?? "unknown"}
+                    </p>
+                  </div>
+                  {m.thumbnail_url && (
+                    <img
+                      src={m.thumbnail_url}
+                      alt={`${it.model_name} thumbnail`}
+                      className="h-12 w-12 rounded border border-border/60 object-cover"
+                    />
+                  )}
+                </div>
+                <div className="mt-2 flex flex-wrap gap-2">
+                  {m.source_url && (
+                    <a
+                      href={m.source_url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="mono inline-flex items-center gap-1 rounded border border-border/60 px-2 py-1 text-[11px] text-primary hover:bg-primary/10"
+                    >
+                      <ExternalLink className="h-3 w-3" /> Source
+                    </a>
+                  )}
+                  {m.file_url && (
+                    <a
+                      href={m.file_url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="mono inline-flex items-center gap-1 rounded border border-border/60 px-2 py-1 text-[11px] text-primary hover:bg-primary/10"
+                    >
+                      <ExternalLink className="h-3 w-3" /> STL file
+                    </a>
+                  )}
+                  {!m.source_url && !m.file_url && (
+                    <span className="mono text-[11px] text-muted-foreground">No file link</span>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
 
 /* ------------------------------ Materials -------------------------------- */
 

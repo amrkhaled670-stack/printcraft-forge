@@ -1,12 +1,13 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { Trash2, ArrowRight, PackageOpen } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 import { SiteHeader } from "@/components/site-header";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { useCart } from "@/stores/cart";
-import { money } from "@/lib/pricing";
+import { useMoney } from "@/lib/pricing";
 
 export const Route = createFileRoute("/cart")({
   head: () => ({
@@ -26,6 +27,8 @@ export const Route = createFileRoute("/cart")({
 });
 
 function CartPage() {
+  const money = useMoney();
+  const { t } = useTranslation();
   const items = useCart((s) => s.items);
   const removeItem = useCart((s) => s.removeItem);
   const updateItem = useCart((s) => s.updateItem);
@@ -40,19 +43,17 @@ function CartPage() {
       <SiteHeader />
       <main className="mx-auto max-w-7xl px-6 py-10">
         <div className="mono mb-6 text-[11px] uppercase tracking-widest text-muted-foreground">
-          03 / cart
+          03 / {t("cart.title").toLowerCase()}
         </div>
 
         {items.length === 0 ? (
           <Card className="mx-auto max-w-lg border-border/70 bg-card/60">
             <CardContent className="flex flex-col items-center gap-4 p-12 text-center">
               <PackageOpen className="h-8 w-8 text-primary" />
-              <h2 className="text-xl font-semibold">Cart is empty</h2>
-              <p className="text-sm text-muted-foreground">
-                Configure a print to add it here.
-              </p>
+              <h2 className="text-xl font-semibold">{t("cart.empty")}</h2>
+              <p className="text-sm text-muted-foreground">{t("cart.emptyHint")}</p>
               <Button asChild className="mono">
-                <Link to="/configure">Open configurator</Link>
+                <Link to="/configure">{t("cart.openConfigurator")}</Link>
               </Button>
             </CardContent>
           </Card>
@@ -68,17 +69,17 @@ function CartPage() {
                         <div className="mono mt-1 flex flex-wrap gap-x-3 gap-y-1 text-[11px] uppercase tracking-wider text-muted-foreground">
                           <span>{item.materialName}</span>
                           <span>· {item.color}</span>
-                          <span>· {item.layerHeight}mm layers</span>
-                          <span>· {item.infillPct}% infill</span>
+                          <span>· {item.layerHeight}{t("cart.layers")}</span>
+                          <span>· {item.infillPct}{t("cart.infill")}</span>
                           {item.finishing.length > 0 && (
-                            <span>· finish: {item.finishing.join(", ")}</span>
+                            <span>· {t("cart.finish")}: {item.finishing.join(", ")}</span>
                           )}
                         </div>
                       </div>
                       <button
                         onClick={() => removeItem(item.id)}
                         className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive"
-                        aria-label="Remove item"
+                        aria-label={t("cart.remove")}
                       >
                         <Trash2 className="h-4 w-4" />
                       </button>
@@ -112,7 +113,7 @@ function CartPage() {
                           +
                         </Button>
                         <span className="mono ml-3 text-xs text-muted-foreground">
-                          {money(item.unitPrice)} ea
+                          {money(item.unitPrice)} {t("cart.each")}
                         </span>
                       </div>
                       <div className="mono text-lg font-semibold text-primary">
@@ -127,14 +128,14 @@ function CartPage() {
             <Card className="sticky top-20 h-fit border-primary/40 bg-card/80 glow-cyan">
               <CardContent className="p-6">
                 <div className="mono text-[11px] uppercase tracking-widest text-muted-foreground">
-                  order.summary
+                  {t("cart.summary")}
                 </div>
                 <div className="mt-4 space-y-2 mono text-sm">
-                  <Row label="Subtotal" v={subtotal} />
-                  <Row label="Shipping" v={shipping} />
+                  <Row label={t("cart.subtotal")} v={subtotal} />
+                  <Row label={t("cart.shipping")} v={shipping} />
                   <Separator className="my-3" />
                   <div className="flex justify-between text-lg">
-                    <span>Total</span>
+                    <span>{t("cart.total")}</span>
                     <span className="text-primary font-semibold">{money(total)}</span>
                   </div>
                 </div>
@@ -143,7 +144,7 @@ function CartPage() {
                   size="lg"
                   onClick={() => navigate({ to: "/checkout" })}
                 >
-                  Checkout <ArrowRight className="ml-2 h-4 w-4" />
+                  {t("cart.checkout")} <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </CardContent>
             </Card>
@@ -155,6 +156,7 @@ function CartPage() {
 }
 
 function Row({ label, v }: { label: string; v: number }) {
+  const money = useMoney();
   return (
     <div className="flex justify-between">
       <span className="text-muted-foreground">{label}</span>

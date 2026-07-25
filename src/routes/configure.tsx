@@ -20,7 +20,7 @@ import {
 
 import { useCart } from "@/stores/cart";
 import { useMaterials, useSettings } from "@/lib/queries";
-import { calcPrice, money, DEFAULT_SETTINGS } from "@/lib/pricing";
+import { calcPrice, useMoney, DEFAULT_SETTINGS } from "@/lib/pricing";
 
 
 export const Route = createFileRoute("/configure")({
@@ -49,6 +49,7 @@ const FINISHING = [
 ];
 
 function Configure() {
+  const money = useMoney();
   const navigate = useNavigate();
   const model = useCart((s) => s.configuratorModel);
   const setModel = useCart((s) => s.setConfiguratorModel);
@@ -396,6 +397,7 @@ function Stat({
 }
 
 function Row({ label, v }: { label: string; v: number }) {
+  const money = useMoney();
   return (
     <div className="flex justify-between">
       <span>{label}</span>

@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/select";
 
 import { useCart } from "@/stores/cart";
-import { money } from "@/lib/pricing";
+import { useMoney } from "@/lib/pricing";
 import { supabase } from "@/integrations/supabase/client";
 import { GOVERNORATES, governorateLabel, shippingFor } from "@/lib/shipping";
 import { buildWhatsappUrl } from "@/components/whatsapp-button";
@@ -44,6 +44,7 @@ export const Route = createFileRoute("/_authenticated/checkout")({
 });
 
 function Checkout() {
+  const money = useMoney();
   const { t, i18n } = useTranslation();
   const lang = (i18n.resolvedLanguage ?? i18n.language ?? "en").slice(0, 2);
   const items = useCart((s) => s.items);
@@ -364,6 +365,7 @@ function Field({ label, v, on }: { label: string; v: string; on: (v: string) => 
 }
 
 function Row({ label, v }: { label: string; v: number }) {
+  const money = useMoney();
   return (
     <div className="flex justify-between text-sm mono">
       <span className="text-muted-foreground">{label}</span>

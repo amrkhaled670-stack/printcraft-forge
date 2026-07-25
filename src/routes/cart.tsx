@@ -26,6 +26,7 @@ export const Route = createFileRoute("/cart")({
 });
 
 function CartPage() {
+  const money = useMoney();
   const items = useCart((s) => s.items);
   const removeItem = useCart((s) => s.removeItem);
   const updateItem = useCart((s) => s.updateItem);
@@ -155,6 +156,7 @@ function CartPage() {
 }
 
 function Row({ label, v }: { label: string; v: number }) {
+  const money = useMoney();
   return (
     <div className="flex justify-between">
       <span className="text-muted-foreground">{label}</span>

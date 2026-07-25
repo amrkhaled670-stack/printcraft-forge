@@ -145,6 +145,7 @@ function AdminPage() {
 /* -------------------------------- Orders --------------------------------- */
 
 function OrdersPanel() {
+  const money = useMoney();
   const qc = useQueryClient();
   const [detailId, setDetailId] = useState<string | null>(null);
   const ordersQ = useQuery({

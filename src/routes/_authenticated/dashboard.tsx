@@ -75,6 +75,7 @@ interface OrderItemRow {
 const ACTIVE: OrderStatus[] = ["pending", "slicing", "printing", "shipped"];
 
 function DashboardPage() {
+  const money = useMoney();
   const { user } = useAuth();
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [sortDesc, setSortDesc] = useState(true);
@@ -280,6 +281,7 @@ function OrderDetailDialog({
   order: OrderRow | null;
   onClose: () => void;
 }) {
+  const money = useMoney();
   const itemsQ = useQuery({
     queryKey: ["order-items", order?.id],
     enabled: !!order?.id,

@@ -1,7 +1,8 @@
 import { useTranslation } from "react-i18next";
 import { MessageCircle } from "lucide-react";
 
-export const WHATSAPP_NUMBER = "201069198379"; // +20 106 919 8379
+export const WHATSAPP_NUMBER = "201069198397"; // +20 106 919 8397
+export const WHATSAPP_DISPLAY = "+20 106 919 8397";
 
 export function buildWhatsappUrl(message: string) {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;

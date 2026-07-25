@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/select";
 
 import { useCart } from "@/stores/cart";
-import { money } from "@/lib/pricing";
+import { useMoney } from "@/lib/pricing";
 import { supabase } from "@/integrations/supabase/client";
 import { GOVERNORATES, governorateLabel, shippingFor } from "@/lib/shipping";
 import { buildWhatsappUrl } from "@/components/whatsapp-button";

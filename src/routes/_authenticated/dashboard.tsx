@@ -31,7 +31,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
-import { money } from "@/lib/pricing";
+import { useMoney } from "@/lib/pricing";
 import {
   OrderStatusStepper,
   StatusBadge,

@@ -6,7 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { useCart } from "@/stores/cart";
-import { money } from "@/lib/pricing";
+import { useMoney } from "@/lib/pricing";
 
 export const Route = createFileRoute("/cart")({
   head: () => ({

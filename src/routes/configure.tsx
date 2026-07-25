@@ -20,7 +20,7 @@ import {
 
 import { useCart } from "@/stores/cart";
 import { useMaterials, useSettings } from "@/lib/queries";
-import { calcPrice, money, DEFAULT_SETTINGS } from "@/lib/pricing";
+import { calcPrice, useMoney, DEFAULT_SETTINGS } from "@/lib/pricing";
 
 
 export const Route = createFileRoute("/configure")({

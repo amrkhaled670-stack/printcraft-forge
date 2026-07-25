@@ -42,7 +42,7 @@ import {
 import { supabase } from "@/integrations/supabase/client";
 import { useRoles } from "@/hooks/use-role";
 import { useAuth } from "@/hooks/use-auth";
-import { money, DEFAULT_SETTINGS } from "@/lib/pricing";
+import { useMoney, DEFAULT_SETTINGS } from "@/lib/pricing";
 import { StatusBadge, ORDER_STATUSES, type OrderStatus } from "@/components/order-status-stepper";
 
 export const Route = createFileRoute("/_authenticated/admin")({

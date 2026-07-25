@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { supabase } from "@/integrations/supabase/client";
 import { LanguageSwitcher } from "@/components/language-switcher";
+import { CurrencySwitcher } from "@/components/currency-switcher";
 
 export function SiteHeader() {
   const { user } = useAuth();
@@ -59,6 +60,7 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2">
+          <CurrencySwitcher />
           <LanguageSwitcher />
           <Button asChild variant="ghost" size="sm" aria-label={t("nav.cart")}>
             <Link to="/cart">

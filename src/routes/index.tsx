@@ -21,6 +21,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { SiteHeader } from "@/components/site-header";
+import { Footer } from "@/components/footer";
 import { useCart } from "@/stores/cart";
 import { parseMakerWorldUrl, parseUpload } from "@/lib/mock-parser";
 
@@ -356,6 +357,7 @@ function Landing() {
           </Button>
         </div>
       </section>
+      <Footer />
     </div>
   );
 }

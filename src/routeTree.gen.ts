@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermsOfServiceRouteImport } from './routes/terms-of-service'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RefundPolicyRouteImport } from './routes/refund-policy'
+import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as OrderConfirmedRouteImport } from './routes/order-confirmed'
 import { Route as ConfigureRouteImport } from './routes/configure'
 import { Route as CartRouteImport } from './routes/cart'
@@ -35,6 +36,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const RefundPolicyRoute = RefundPolicyRouteImport.update({
   id: '/refund-policy',
   path: '/refund-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
+  id: '/privacy-policy',
+  path: '/privacy-policy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OrderConfirmedRoute = OrderConfirmedRouteImport.update({
@@ -88,6 +94,7 @@ export interface FileRoutesByFullPath {
   '/cart': typeof CartRoute
   '/configure': typeof ConfigureRoute
   '/order-confirmed': typeof OrderConfirmedRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/refund-policy': typeof RefundPolicyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms-of-service': typeof TermsOfServiceRoute
@@ -101,6 +108,7 @@ export interface FileRoutesByTo {
   '/cart': typeof CartRoute
   '/configure': typeof ConfigureRoute
   '/order-confirmed': typeof OrderConfirmedRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/refund-policy': typeof RefundPolicyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms-of-service': typeof TermsOfServiceRoute
@@ -116,6 +124,7 @@ export interface FileRoutesById {
   '/cart': typeof CartRoute
   '/configure': typeof ConfigureRoute
   '/order-confirmed': typeof OrderConfirmedRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/refund-policy': typeof RefundPolicyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms-of-service': typeof TermsOfServiceRoute
@@ -131,6 +140,7 @@ export interface FileRouteTypes {
     | '/cart'
     | '/configure'
     | '/order-confirmed'
+    | '/privacy-policy'
     | '/refund-policy'
     | '/sitemap.xml'
     | '/terms-of-service'
@@ -144,6 +154,7 @@ export interface FileRouteTypes {
     | '/cart'
     | '/configure'
     | '/order-confirmed'
+    | '/privacy-policy'
     | '/refund-policy'
     | '/sitemap.xml'
     | '/terms-of-service'
@@ -158,6 +169,7 @@ export interface FileRouteTypes {
     | '/cart'
     | '/configure'
     | '/order-confirmed'
+    | '/privacy-policy'
     | '/refund-policy'
     | '/sitemap.xml'
     | '/terms-of-service'
@@ -173,6 +185,7 @@ export interface RootRouteChildren {
   CartRoute: typeof CartRoute
   ConfigureRoute: typeof ConfigureRoute
   OrderConfirmedRoute: typeof OrderConfirmedRoute
+  PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   RefundPolicyRoute: typeof RefundPolicyRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsOfServiceRoute: typeof TermsOfServiceRoute
@@ -199,6 +212,13 @@ declare module '@tanstack/react-router' {
       path: '/refund-policy'
       fullPath: '/refund-policy'
       preLoaderRoute: typeof RefundPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy-policy': {
+      id: '/privacy-policy'
+      path: '/privacy-policy'
+      fullPath: '/privacy-policy'
+      preLoaderRoute: typeof PrivacyPolicyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/order-confirmed': {
@@ -289,6 +309,7 @@ const rootRouteChildren: RootRouteChildren = {
   CartRoute: CartRoute,
   ConfigureRoute: ConfigureRoute,
   OrderConfirmedRoute: OrderConfirmedRoute,
+  PrivacyPolicyRoute: PrivacyPolicyRoute,
   RefundPolicyRoute: RefundPolicyRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsOfServiceRoute: TermsOfServiceRoute,

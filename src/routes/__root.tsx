@@ -82,23 +82,24 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "PrintHub — Paste. Configure. Print." },
+      { title: "Print Forge | أفضل خدمة طباعة 3D في مصر" },
       {
         name: "description",
         content:
-          "PrintHub turns a MakerWorld link or STL upload into a shipped part. Instant multi-material pricing, real-time tracking.",
+          "ارفع ملفات الـ STL واطبع نماذجك ثلاثية الأبعاد بأفضل خامات وأسعار في مصر مع شحن سريع.",
       },
-      { name: "author", content: "PrintHub" },
-      { property: "og:title", content: "PrintHub — Paste. Configure. Print." },
+      { name: "author", content: "Print Forge" },
+      { property: "og:title", content: "Print Forge | أفضل خدمة طباعة 3D في مصر" },
       {
         property: "og:description",
         content:
-          "PrintHub turns a MakerWorld link or STL upload into a shipped part. Instant multi-material pricing, real-time tracking.",
+          "ارفع ملفات الـ STL واطبع نماذجك ثلاثية الأبعاد بأفضل خامات وأسعار في مصر مع شحن سريع.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "Print Forge" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "PrintHub — Paste. Configure. Print." },
-      { name: "twitter:description", content: "PrintHub turns a MakerWorld link or STL upload into a shipped part. Instant multi-material pricing, real-time tracking." },
+      { name: "twitter:title", content: "Print Forge | أفضل خدمة طباعة 3D في مصر" },
+      { name: "twitter:description", content: "ارفع ملفات الـ STL واطبع نماذجك ثلاثية الأبعاد بأفضل خامات وأسعار في مصر مع شحن سريع." },
       { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/29d5d85a-0297-4a41-a89a-6f89d60271f9/id-preview-82aa5c55--466e2b70-c9ad-43f7-bb7a-51774835cb2b.lovable.app-1784767491459.png" },
       { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/29d5d85a-0297-4a41-a89a-6f89d60271f9/id-preview-82aa5c55--466e2b70-c9ad-43f7-bb7a-51774835cb2b.lovable.app-1784767491459.png" },
     ],
@@ -108,6 +109,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap",
+      },
+    ],
+    scripts: [
+      {
+        src: "https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX",
+        async: true,
+      },
+      {
+        children: `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-XXXXXXXXXX');`,
       },
     ],
   }),

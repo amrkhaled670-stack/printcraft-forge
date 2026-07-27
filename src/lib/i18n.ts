@@ -126,6 +126,11 @@ export const resources = {
         loading: "Loading…",
         error: "Something went wrong",
       },
+      footer: {
+        refund: "Refund Policy",
+        terms: "Terms of Service",
+        privacy: "Privacy Policy",
+      },
     },
   },
   ar: {
@@ -249,6 +254,11 @@ export const resources = {
       common: {
         loading: "جارٍ التحميل…",
         error: "حدث خطأ ما",
+      },
+      footer: {
+        refund: "سياسة الاسترجاع",
+        terms: "شروط الخدمة",
+        privacy: "سياسة الخصوصية",
       },
     },
   },

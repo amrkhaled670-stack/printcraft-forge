@@ -25,6 +25,9 @@ import { useMoney } from "@/lib/pricing";
 import { supabase } from "@/integrations/supabase/client";
 import { GOVERNORATES, governorateLabel, shippingFor } from "@/lib/shipping";
 import { buildWhatsappUrl } from "@/components/whatsapp-button";
+import { Footer } from "@/components/footer";
+import { sendOrderEmails } from "@/lib/order-email.functions";
+import { useCurrency } from "@/stores/currency";
 
 type PaymentMethod = "cod" | "vodafone_cash" | "instapay";
 

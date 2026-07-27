@@ -25,6 +25,9 @@ import { useMoney } from "@/lib/pricing";
 import { supabase } from "@/integrations/supabase/client";
 import { GOVERNORATES, governorateLabel, shippingFor } from "@/lib/shipping";
 import { buildWhatsappUrl } from "@/components/whatsapp-button";
+import { Footer } from "@/components/footer";
+import { sendOrderEmails } from "@/lib/order-email.functions";
+import { useCurrency } from "@/stores/currency";
 
 type PaymentMethod = "cod" | "vodafone_cash" | "instapay";
 
@@ -45,6 +48,7 @@ export const Route = createFileRoute("/_authenticated/checkout")({
 
 function Checkout() {
   const money = useMoney();
+  const currency = useCurrency((s) => s.currency);
   const { t, i18n } = useTranslation();
   const lang = (i18n.resolvedLanguage ?? i18n.language ?? "en").slice(0, 2);
   const items = useCart((s) => s.items);
@@ -146,6 +150,28 @@ function Checkout() {
 
       clear();
       toast.success(t("checkout.orderPlaced"));
+
+      // Fire-and-forget confirmation + admin notification emails.
+      try {
+        const displayTotal = currency === "EGP" ? total * 50 : total;
+        await sendOrderEmails({
+          data: {
+            orderId: order.id,
+            customerEmail: userRes.user?.email ?? "",
+            customerName: addr.name,
+            total: displayTotal,
+            currency,
+            items: items.map((i) => ({
+              name: `${i.model.name} (${i.materialName})`,
+              qty: i.quantity,
+              unit: currency === "EGP" ? i.unitPrice * 50 : i.unitPrice,
+            })),
+          },
+        });
+      } catch (mailErr) {
+        console.warn("Email dispatch failed", mailErr);
+      }
+
       navigate({ to: "/order-confirmed", search: { id: order.id } });
     } catch (e: any) {
       toast.error(e.message ?? t("common.error"));

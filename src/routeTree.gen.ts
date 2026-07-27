@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as RefundPolicyRouteImport } from './routes/refund-policy'
 import { Route as OrderConfirmedRouteImport } from './routes/order-confirmed'
 import { Route as ConfigureRouteImport } from './routes/configure'
 import { Route as CartRouteImport } from './routes/cart'
@@ -23,6 +24,11 @@ import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RefundPolicyRoute = RefundPolicyRouteImport.update({
+  id: '/refund-policy',
+  path: '/refund-policy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OrderConfirmedRoute = OrderConfirmedRouteImport.update({
@@ -76,6 +82,7 @@ export interface FileRoutesByFullPath {
   '/cart': typeof CartRoute
   '/configure': typeof ConfigureRoute
   '/order-confirmed': typeof OrderConfirmedRoute
+  '/refund-policy': typeof RefundPolicyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/checkout': typeof AuthenticatedCheckoutRoute
@@ -87,6 +94,7 @@ export interface FileRoutesByTo {
   '/cart': typeof CartRoute
   '/configure': typeof ConfigureRoute
   '/order-confirmed': typeof OrderConfirmedRoute
+  '/refund-policy': typeof RefundPolicyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/checkout': typeof AuthenticatedCheckoutRoute
@@ -100,6 +108,7 @@ export interface FileRoutesById {
   '/cart': typeof CartRoute
   '/configure': typeof ConfigureRoute
   '/order-confirmed': typeof OrderConfirmedRoute
+  '/refund-policy': typeof RefundPolicyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/_authenticated/checkout': typeof AuthenticatedCheckoutRoute
@@ -113,6 +122,7 @@ export interface FileRouteTypes {
     | '/cart'
     | '/configure'
     | '/order-confirmed'
+    | '/refund-policy'
     | '/sitemap.xml'
     | '/admin'
     | '/checkout'
@@ -124,6 +134,7 @@ export interface FileRouteTypes {
     | '/cart'
     | '/configure'
     | '/order-confirmed'
+    | '/refund-policy'
     | '/sitemap.xml'
     | '/admin'
     | '/checkout'
@@ -136,6 +147,7 @@ export interface FileRouteTypes {
     | '/cart'
     | '/configure'
     | '/order-confirmed'
+    | '/refund-policy'
     | '/sitemap.xml'
     | '/_authenticated/admin'
     | '/_authenticated/checkout'
@@ -149,6 +161,7 @@ export interface RootRouteChildren {
   CartRoute: typeof CartRoute
   ConfigureRoute: typeof ConfigureRoute
   OrderConfirmedRoute: typeof OrderConfirmedRoute
+  RefundPolicyRoute: typeof RefundPolicyRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
 }
 
@@ -159,6 +172,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/refund-policy': {
+      id: '/refund-policy'
+      path: '/refund-policy'
+      fullPath: '/refund-policy'
+      preLoaderRoute: typeof RefundPolicyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/order-confirmed': {
@@ -249,18 +269,9 @@ const rootRouteChildren: RootRouteChildren = {
   CartRoute: CartRoute,
   ConfigureRoute: ConfigureRoute,
   OrderConfirmedRoute: OrderConfirmedRoute,
+  RefundPolicyRoute: RefundPolicyRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
